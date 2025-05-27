@@ -26,7 +26,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class=" p-10 w-full "  data-aos="fade-right" >
+    <div class=" p-10 w-full ml-[16rem] "  data-aos="fade-right" >
         <div class="flex-1 bg-white p-6 rounded-lg shadow-lg ">
             <h2 class="text-xl font-semibold mb-4">Chat Admin</h2>
             <div id="chat-box" class="flex flex-col p-4 h-[400px] overflow-y-auto border rounded-lg bg-gray-50 mb-4"></div>
