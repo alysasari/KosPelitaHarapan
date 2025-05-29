@@ -3,7 +3,7 @@ session_start();
 include "./koneksi/db.php";
 
 // Ambil path dari URL setelah "/KosPelitaHarapanKOS"
-$request = trim(str_replace("/KosPelitaHarapanKOS", "", parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH)), "/");
+$request = trim(str_replace("/KosPelitaHarapan", "", parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH)), "/");
 
 // Route statis (tanpa parameter)
 $routes = [
