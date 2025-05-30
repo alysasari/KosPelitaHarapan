@@ -39,8 +39,9 @@ if (preg_match("#^roomDetail/(\d+)$#", $request, $matches)) {
     exit;
 }
 
-// Route tambahan jika kamu punya misalnya roomDetail/fasilitas
-if ($request === "roomDetail/fasilitas") {
+// Route dinamis: roomDetail/fasilitas/{id}
+if (preg_match("#^roomDetail/fasilitas/(\d+)$#", $request, $matches)) {
+    $_GET['url'] = "roomDetail/fasilitas/" . $matches[1];
     include "pages/users/fasilitas.php";
     exit;
 }
