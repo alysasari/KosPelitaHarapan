@@ -38,7 +38,8 @@ $room = $result->fetch_assoc();
     <div data-aos="fade-down">
         <div class="max-w-4xl mx-auto bg-white rounded-lg shadow p-6">
             <!-- Gambar utama -->
-            <img src="uploads/<?= htmlspecialchars($room['gambar']) ?>" alt="Gambar Kamar" class="w-full h-72 object-cover rounded-lg mb-4">
+           <img src="/KosPelitaHarapan/uploads/<?= htmlspecialchars($room['gambar']) ?>" alt="Gambar Kamar" class="w-full h-72 object-cover rounded-lg mb-4">
+
             <!-- Header: Nama, Rating, Lokasi -->
             <div class="flex justify-between">
                 <div>
@@ -63,10 +64,6 @@ $room = $result->fetch_assoc();
                             class="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700">
                             Book now
                         </button>
-
-
-
-
                     </div>
                     <span class="text-sm text-gray-500">15 people recently enquired</span>
                 </div>
