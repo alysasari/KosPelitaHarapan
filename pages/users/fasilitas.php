@@ -45,13 +45,14 @@ $room = mysqli_fetch_assoc($query);
             <h1 class="text-2xl font-bold mb-6">Facilities Available</h1>
 
             <div class="flex space-x-4 mb-6">
-                <button class="bg-blue-600 text-white px-4 py-2 rounded-full">Facilities</button>
-                <button class="bg-white text-gray-700 px-4 py-2 rounded-full border">Time</button>
-                <button class="bg-white text-gray-700 px-4 py-2 rounded-full border">Confirm</button>
-                <button class="bg-white text-gray-700 px-4 py-2 rounded-full border">Payment</button>
+                <button id="btnFacilities" class="bg-blue-600 text-white px-4 py-2 rounded-full">Facilities</button>
+                <button id="btnTime" class="bg-white text-gray-700 px-4 py-2 rounded-full border">Time</button>
+                <button id="btnConfirm" class="bg-white text-gray-700 px-4 py-2 rounded-full border">Confirm</button>
+                <button id="btnPayment" class="bg-white text-gray-700 px-4 py-2 rounded-full border">Payment</button>
             </div>
 
-            <div class="space-y-3">
+            <!-- halaman fasilitas -->
+            <div id="stepFacilities" class="space-y-3">
                 <?php
                 $fasilitas = explode(",", $room['fasilitas']);
                 foreach ($fasilitas as $f) {
@@ -66,6 +67,16 @@ $room = mysqli_fetch_assoc($query);
                 }
                 ?>
             </div>
+
+            <div id="stepTime" class="hidden">
+                <div class="border p-4 rounded bg-gray-100">
+                    <h2 class="text-lg font-semibold mb-2"> Select a time</h2>
+
+                    </div>
+                </div>
+            </div>
+
+            <br>
 
             <a href="../../roomDetail/<?= $room['id'] ?>" class="border px-4 py-2 rounded bg-white hover:bg-gray-100">Kembali</a>
 
@@ -95,7 +106,7 @@ $room = mysqli_fetch_assoc($query);
                     <span>Total</span>
                     <span>Rp <?= number_format($room['price'], 0, ',', '.') ?></span>
                 </div>
-
+ 
                 <button class="w-full bg-purple-800 hover:bg-purple-900 text-white py-2 rounded-lg mt-2">Continue</button>
             </div>
         </div>
