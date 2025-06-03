@@ -82,49 +82,80 @@ $room = mysqli_fetch_assoc($query);
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
+            <a href="../../roomDetail/<?= $room['id'] ?>" class="border px-4 py-2 rounded bg-white hover:bg-gray-100">Kembali</a>
         </div>
 
-        <br>
-
-        <a href="../../roomDetail/<?= $room['id'] ?>" class="border px-4 py-2 rounded bg-white hover:bg-gray-100">Kembali</a>
 
 
 
-    </div>
 
-    <!-- Right: Booking Summary -->
-    <div class="w-1/3">
-        <div class="bg-white border p-4 rounded-lg shadow-sm">
-            <img src="../../uploads/<?= htmlspecialchars($room['gambar']) ?>" alt="Room Image" class="rounded mb-4 w-full h-40 object-cover">
-            <h2 class="font-semibold text-lg"><?= htmlspecialchars($room['name']) ?></h2>
-            <p class="text-sm text-gray-500 mb-2">Pelita Harapan</p>
-
-            <div class="text-sm text-gray-600 border-t border-b py-3">
-                <div class="flex justify-between">
-                    <span><?= htmlspecialchars($room['name']) ?> Type</span>
+        <!-- Right: Booking Summary -->
+        <div class="w-1/3">
+            <div class="bg-white border p-4 rounded-lg shadow-sm">
+                <img src="../../uploads/<?= htmlspecialchars($room['gambar']) ?>" alt="Room Image" class="rounded mb-4 w-full h-40 object-cover">
+                <h2 class="font-semibold text-lg"><?= htmlspecialchars($room['name']) ?></h2>
+                <p class="text-sm text-gray-500 mb-2">Pelita Harapan</p>
+    
+                <div class="text-sm text-gray-600 border-t border-b py-3">
+                    <div class="flex justify-between">
+                        <span><?= htmlspecialchars($room['name']) ?> Type</span>
+                        <span>Rp <?= number_format($room['price'], 0, ',', '.') ?></span>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <span><?= $room['tenant_room'] ?> orang</span>
+                        <span></span>
+                    </div>
+                </div>
+    
+                <div class="flex justify-between font-bold py-3">
+                    <span>Total</span>
                     <span>Rp <?= number_format($room['price'], 0, ',', '.') ?></span>
                 </div>
-                <div class="flex justify-between mt-2">
-                    <span><?= $room['tenant_room'] ?> orang</span>
-                    <span></span>
-                </div>
+    
+                <button class="w-full bg-purple-800 hover:bg-purple-900 text-white py-2 rounded-lg mt-2">Continue</button>
             </div>
-
-            <div class="flex justify-between font-bold py-3">
-                <span>Total</span>
-                <span>Rp <?= number_format($room['price'], 0, ',', '.') ?></span>
-            </div>
-
-            <button class="w-full bg-purple-800 hover:bg-purple-900 text-white py-2 rounded-lg mt-2">Continue</button>
         </div>
     </div>
 
+
     </div>
 
-<!-- Javascript --?
+    <!-- Javascript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const btnFacilities = document.getElementById("btnFacilities");
+            const btnTime = document.getElementById("btnTime");
 
+            const sectionFacilities = document.getElementById("stepFacilities");
+            const sectionTime = document.getElementById("stepTime");
 
+            btnFacilities.addEventListener("click", function() {
+                sectionFacilities.classList.remove("hidden");
+                sectionTime.classList.add("hidden");
 
+                btnFacilities.classList.add("bg-blue-600", "text-white");
+                btnFacilities.classList.remove("bg-white", "text-gray-700", "border");
+
+                btnTime.classList.remove("bg-blue-600", "text-white");
+                btnTime.classList.add("bg-white", "text-gray-700", "border");
+            });
+
+            btnTime.addEventListener("click", function() {
+                sectionTime.classList.remove("hidden");
+                sectionFacilities.classList.add("hidden");
+
+                btnTime.classList.add("bg-blue-600", "text-white");
+                btnTime.classList.remove("bg-white", "text-gray-700", "border");
+
+                btnFacilities.classList.remove("bg-blue-600", "text-white");
+                btnFacilities.classList.add("bg-white", "text-gray-700", "border");
+            });
+        });
+    </script>
+
+        <script src="./"></script>
 
 </body>
 
