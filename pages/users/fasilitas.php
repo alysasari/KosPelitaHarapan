@@ -68,6 +68,7 @@ $room = mysqli_fetch_assoc($query);
                 ?>
             </div>
 
+            <!-- halaman time -->
             <div id="stepTime" class="hidden">
                 <div class="border p-4 rounded bg-gray-100">
                     <h2 class="text-lg font-semibold mb-2"> Select a time</h2>
@@ -80,8 +81,58 @@ $room = mysqli_fetch_assoc($query);
                         <div class="bg-white border py-2 rounded">Fri<br>21</div>
                         <div class="bg-white border py-2 rounded">Sat<br>22</div>
                     </div>
+                    <div>
+                        <div class="flex items-center h-[72px] bg-white flex pl-6 font-bold">4:45 pm</div>
+                        <br>
+                        <div class="flex items-center h-[72px] bg-white flex pl-6 font-bold">5:00 pm</div>
+                        <br>
+                        <div class="flex items-center h-[72px] bg-white flex pl-6 font-bold">5:15 pm</div>
+                        <br>
+                        <div class="flex items-center h-[72px] bg-white flex pl-6 font-bold">4:30 pm</div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Confirm Section -->
+            <div id="stepConfirm" class="hidden">
+                <div class="border p-4 bg-gray-100 rounded">
+                    <h2 class="text-lg font-semibold mb-2">Confirmation</h2>
+                    <p class="text-gray-700 mb-4">Silakan cek kembali data booking kamar:</p>
+
+                    <ul class="text-sm space-y-2">
+                        <li><strong>Nama Kamar:</strong> <?= htmlspecialchars($room['name']) ?></li>
+                        <li><strong>Harga:</strong> Rp <?= number_format($room['price'], 0, ',', '.') ?></li>
+                        <li><strong>Jumlah Penghuni:</strong> <?= $room['tenant_room'] ?> orang</li>
+                        <li><strong>Lokasi:</strong> Babarsari, Yogyakarta</li>
+                        <li><strong>Waktu Booking:</strong>4:45pm</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <!-- Payment Section -->
+            <div id="stepPayment" class="hidden">
+                <div class="border p-4 bg-gray-100 rounded">
+                    <h2 class="text-lg font-semibold mb-2">Payment</h2>
+                    <p class="mb-4 text-gray-700">Pilih metode pembayaran:</p>
+
+                    <div class="space-y-2">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="payment" checked>
+                            <span>Transfer Bank</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="payment">
+                            <span>Gopay / OVO / Dana</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="payment">
+                            <span>Kartu Kredit</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <br>
             <br>
             <a href="../../roomDetail/<?= $room['id'] ?>" class="border px-4 py-2 rounded bg-white hover:bg-gray-100">Kembali</a>
@@ -97,7 +148,7 @@ $room = mysqli_fetch_assoc($query);
                 <img src="../../uploads/<?= htmlspecialchars($room['gambar']) ?>" alt="Room Image" class="rounded mb-4 w-full h-40 object-cover">
                 <h2 class="font-semibold text-lg"><?= htmlspecialchars($room['name']) ?></h2>
                 <p class="text-sm text-gray-500 mb-2">Pelita Harapan</p>
-    
+
                 <div class="text-sm text-gray-600 border-t border-b py-3">
                     <div class="flex justify-between">
                         <span><?= htmlspecialchars($room['name']) ?> Type</span>
@@ -108,12 +159,12 @@ $room = mysqli_fetch_assoc($query);
                         <span></span>
                     </div>
                 </div>
-    
+
                 <div class="flex justify-between font-bold py-3">
                     <span>Total</span>
                     <span>Rp <?= number_format($room['price'], 0, ',', '.') ?></span>
                 </div>
-    
+
                 <button class="w-full bg-purple-800 hover:bg-purple-900 text-white py-2 rounded-lg mt-2">Continue</button>
             </div>
         </div>
@@ -124,36 +175,43 @@ $room = mysqli_fetch_assoc($query);
 
     <!-- Javascript -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const btnFacilities = document.getElementById("btnFacilities");
-            const btnTime = document.getElementById("btnTime");
+    document.addEventListener("DOMContentLoaded", function () {
+        // Tombol
+        const btnFacilities = document.getElementById("btnFacilities");
+        const btnTime = document.getElementById("btnTime");
+        const btnConfirm = document.getElementById("btnConfirm");
+        const btnPayment = document.getElementById("btnPayment");
 
-            const sectionFacilities = document.getElementById("stepFacilities");
-            const sectionTime = document.getElementById("stepTime");
+        // Section Konten
+        const sectionFacilities = document.getElementById("stepFacilities");
+        const sectionTime = document.getElementById("stepTime");
+        const sectionConfirm = document.getElementById("stepConfirm");
+        const sectionPayment = document.getElementById("stepPayment");
 
-            btnFacilities.addEventListener("click", function() {
-                sectionFacilities.classList.remove("hidden");
-                sectionTime.classList.add("hidden");
+        const allSections = [sectionFacilities, sectionTime, sectionConfirm, sectionPayment];
+        const allButtons = [btnFacilities, btnTime, btnConfirm, btnPayment];
 
-                btnFacilities.classList.add("bg-blue-600", "text-white");
-                btnFacilities.classList.remove("bg-white", "text-gray-700", "border");
-
-                btnTime.classList.remove("bg-blue-600", "text-white");
-                btnTime.classList.add("bg-white", "text-gray-700", "border");
+        // Fungsi untuk switch tab
+        function showSection(activeButton, activeSection) {
+            allSections.forEach(section => section.classList.add("hidden"));
+            allButtons.forEach(btn => {
+                btn.classList.remove("bg-blue-600", "text-white");
+                btn.classList.add("bg-white", "text-gray-700", "border");
             });
 
-            btnTime.addEventListener("click", function() {
-                sectionTime.classList.remove("hidden");
-                sectionFacilities.classList.add("hidden");
+            activeSection.classList.remove("hidden");
+            activeButton.classList.add("bg-blue-600", "text-white");
+            activeButton.classList.remove("bg-white", "text-gray-700", "border");
+        }
 
-                btnTime.classList.add("bg-blue-600", "text-white");
-                btnTime.classList.remove("bg-white", "text-gray-700", "border");
+        // Event listeners
+        btnFacilities.addEventListener("click", () => showSection(btnFacilities, sectionFacilities));
+        btnTime.addEventListener("click", () => showSection(btnTime, sectionTime));
+        btnConfirm.addEventListener("click", () => showSection(btnConfirm, sectionConfirm));
+        btnPayment.addEventListener("click", () => showSection(btnPayment, sectionPayment));
+    });
+</script>
 
-                btnFacilities.classList.remove("bg-blue-600", "text-white");
-                btnFacilities.classList.add("bg-white", "text-gray-700", "border");
-            });
-        });
-    </script>
 
 </body>
 
