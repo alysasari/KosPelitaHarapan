@@ -155,8 +155,6 @@ $room = mysqli_fetch_assoc($query);
         });
     </script>
 
-        <script src="./"></script>
-
 </body>
 
 </html>
