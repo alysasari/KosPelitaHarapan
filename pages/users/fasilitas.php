@@ -41,7 +41,6 @@ $room = mysqli_fetch_assoc($query);
 
         <!-- Left: Facilities and Progress -->
         <div class="w-2/3">
-            <p class="text-sm text-gray-600 mb-1">Step 1 of 4</p>
             <h1 class="text-2xl font-bold mb-6">Facilities Available</h1>
 
             <div class="flex space-x-4 mb-6">
