@@ -10,11 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_booking'])) {
     $tenant_room = (int)$_POST['tenant_room'];
     $selected_date = mysqli_real_escape_string($conn, $_POST['selected_date']);
     $selected_time = mysqli_real_escape_string($conn, $_POST['selected_time']);
+    $gambar = mysqli_real_escape_string($conn, $_POST['gambar']);
     $payment_method = mysqli_real_escape_string($conn, $_POST['payment_method']);
 
     // Insert ke tabel bookings
-    $insert_query = "INSERT INTO bookings (room_id, user_name, room_name, price, tenant_room, booking_date, booking_time, payment_method, created_at) 
-                     VALUES ('$room_id', '$user_name', '$room_name', '$price', '$tenant_room', '$selected_date', '$selected_time', '$payment_method', NOW())";
+    $insert_query = "INSERT INTO bookings (room_id, user_name, room_name, price, tenant_room, booking_date, booking_time, payment_method, gambar, created_at) 
+                     VALUES ('$room_id', '$user_name', '$room_name', '$price', '$tenant_room', '$selected_date', '$selected_time', '$payment_method','$gambar', NOW())";
 
     if (mysqli_query($conn, $insert_query)) {
         echo "<script>
@@ -91,6 +92,7 @@ $room = mysqli_fetch_assoc($query);
         <input type="hidden" name="selected_date" id="selectedDate" value="">
         <input type="hidden" name="selected_time" id="selectedTime" value="">
         <input type="hidden" name="payment_method" id="selectedPayment" value="Transfer Bank">
+        <input type="hidden" name="gambar" value="<?= htmlspecialchars($room['gambar']) ?>">
         <input type="hidden" name="submit_booking" value="1">
 
         <div class="max-w-6xl mx-auto bg-white rounded-lg p-6 shadow-lg flex gap-6">
