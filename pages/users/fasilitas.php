@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_booking'])) {
                     confirmButtonColor: '#7c3aed'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.reload();
+                        window.location.href = '../../roomDetail/" . $room_id . "';
                     }
                 });
             });
@@ -169,12 +169,28 @@ $room = mysqli_fetch_assoc($query);
 
                         <div class="space-y-2">
                             <label class="flex items-center space-x-2">
-                                <input type="radio" name="payment" value="Transfer Bank" checked class="payment-radio">
-                                <span>Transfer Bank</span>
+                                <input type="radio" name="payment" value="BSI" checked class="payment-radio">
+                                <span>BSI</span>
                             </label>
                             <label class="flex items-center space-x-2">
-                                <input type="radio" name="payment" value="Gopay / OVO / Dana" class="payment-radio">
-                                <span>Gopay / OVO / Dana</span>
+                                <input type="radio" name="payment" value="BRI" class="payment-radio">
+                                <span>BRI</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="payment" value="Mandiri" class="payment-radio">
+                                <span>Mandiri</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="payment" value="Gopay" class="payment-radio">
+                                <span>Gopay</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="payment" value="OVO" class="payment-radio">
+                                <span>OVO</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="payment" value="Dana" class="payment-radio">
+                                <span>Dana</span>
                             </label>
                             <label class="flex items-center space-x-2">
                                 <input type="radio" name="payment" value="Kartu Kredit" class="payment-radio">
@@ -239,7 +255,7 @@ $room = mysqli_fetch_assoc($query);
             // Variabel untuk menyimpan pilihan
             let selectedDate = "";
             let selectedTime = "";
-            let selectedPayment = "Transfer Bank";
+            let selectedPayment = "BSI";
 
             // Fungsi untuk switch tab
             function showSection(activeButton, activeSection) {
@@ -287,6 +303,13 @@ $room = mysqli_fetch_assoc($query);
                 div.dataset.date = `${year}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(dateNum).padStart(2, '0')}`;
                 div.dataset.display = `${dateNum} ${monthName} ${year}`;
                 dateGrid.appendChild(div);
+            }
+
+            // Set tanggal hari ini sebagai default
+            if (dateGrid.children.length > 0) {
+                const firstDate = dateGrid.children[0];
+                selectedDate = firstDate.dataset.date;
+                document.getElementById('selectedDate').value = selectedDate;
             }
 
             // Event listener untuk pemilihan tanggal
@@ -399,11 +422,47 @@ $room = mysqli_fetch_assoc($query);
                     cancelButtonColor: '#6b7280'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Tampilkan loading saat successs
-                        Swal.fire({
-                            title: "Sukses pemesanan kamar ya",
-                            icon: "success",
-                            draggable: true
+                        // Submit form secara programatis
+                        const form = document.getElementById('bookingForm');
+                        const formData = new FormData(form);
+                        
+                        // Buat request POST
+                        fetch(window.location.href, {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                            // Jika response mengandung script SweetAlert success
+                            if (data.includes('Booking Berhasil!')) {
+                                Swal.fire({
+                                    title: 'Booking Berhasil!',
+                                    text: 'Data booking Anda telah berhasil disimpan.',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK',
+                                    confirmButtonColor: '#7c3aed'
+                                }).then(() => {
+                                    window.location.href = '../../roomDetail/<?= $room['id'] ?>';
+                                });
+                            } else if (data.includes('Booking Gagal!')) {
+                                Swal.fire({
+                                    title: 'Booking Gagal!',
+                                    text: 'Terjadi kesalahan saat menyimpan data.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK',
+                                    confirmButtonColor: '#ef4444'
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Terjadi kesalahan jaringan.',
+                                icon: 'error',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#ef4444'
+                            });
                         });
                     }
                 });
