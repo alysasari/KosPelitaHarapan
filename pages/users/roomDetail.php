@@ -1,7 +1,6 @@
 <?php
 include __DIR__ . '/../../koneksi/db.php';
 
-// Tangkap segment URL yang sudah di-rewrite oleh index.php
 $segments = explode('/', $_GET['url'] ?? '');
 $id = $segments[1] ?? null;
 
