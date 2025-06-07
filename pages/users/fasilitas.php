@@ -437,7 +437,7 @@ $room = mysqli_fetch_assoc($query);
                             if (data.includes('Booking Berhasil!')) {
                                 Swal.fire({
                                     title: 'Booking Berhasil!',
-                                    text: 'Data booking Anda telah berhasil disimpan.',
+                                    text: 'Data booking Anda telah berhasil dibayar',
                                     icon: 'success',
                                     confirmButtonText: 'OK',
                                     confirmButtonColor: '#7c3aed'
