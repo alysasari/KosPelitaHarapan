@@ -58,9 +58,9 @@ $room = $result->fetch_assoc();
                 <!-- Tombol -->
                 <div>
                     <div class="flex gap-3">
-                        <a href="/KosPelitaHarapan/room" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 inline-block">
+                        <button onclick="window.location.href='/KosPelitaHarapan/room'" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
                             Back
-                        </a>
+                        </button>
 
 
                         <button onclick="window.location.href='/KosPelitaHarapan/roomDetail/fasilitas/<?= $room['id'] ?>'"
