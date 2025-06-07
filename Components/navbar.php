@@ -42,8 +42,5 @@ if (isset($_SESSION['user'])) {
         <?php endif; ?>
     </div>
 
-    <!-- Hapus baris ini karena duplikat -->
-    <!-- <a ... href="login">Sign Up</a> -->
-
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
 </nav>
