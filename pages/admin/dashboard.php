@@ -1,3 +1,23 @@
+<?php
+include './koneksi/db.php';
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+    $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    if ($stmt->execute()) {
+        header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+        exit();
+    } else {
+        echo "Error deleting record: " . $stmt->error;
+    }
+    $stmt->close();
+    $conn->close();
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -103,62 +123,31 @@
                         <thead>
                             <tr class="bg-gray-100 text-gray-600 uppercase text-xs">
                                 <th class="px-4 py-2">Customer Name</th>
-                                <th class="px-4 py-2">University</th>
-                                <th class="px-4 py-2">Phone Number</th>
                                 <th class="px-4 py-2">Email</th>
-                                <th class="px-4 py-2">Address</th>
-                                <th class="px-4 py-2">Action</th>
+                                <th class="px-4 py-2">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="text-gray-700">
-
+                        <tbody>
                             <?php
-                            include './koneksi/db.php';
-
-                            $sql = "SELECT * FROM users";
-                            $result = $conn->query($sql);
-
-                            // Data dummy untuk kolom yang tidak ada di database (universitas, phone, address)
-                            $dummy = [
-                                ['Microsoft', '(225) 555-0118', 'United States'],
-                                ['Yahoo', '(205) 555-0100', 'Kiribati'],
-                                ['Adobe', '(302) 555-0107', 'Israel'],
-                                ['Tesla', '(252) 555-0126', 'Iran'],
-                                ['Google', '(629) 555-0129', 'Réunion'],
-                                ['Microsoft', '(406) 555-0120', 'Curaçao'],
-                                ['Yahoo', '(208) 555-0112', 'Brazil'],
-                                ['Facebook', '(704) 555-0127', 'Åland Islands']
-                            ];
-
-                            $i = 0;
-                            if ($result->num_rows > 0) {
-                                while ($user = $result->fetch_assoc()) {
-                                    $universitas = $dummy[$i % count($dummy)][0];
-                                    $phone = $dummy[$i % count($dummy)][1];
-                                    $alamat = $dummy[$i % count($dummy)][2];
-
-                                    echo '
-                <tr class="border-b">
-                  <td class="px-4 py-2">' . htmlspecialchars($user['name']) . '</td>
-                  <td class="px-4 py-2">' . $universitas . '</td>
-                  <td class="px-4 py-2">' . $phone . '</td>
-                  <td class="px-4 py-2">' . htmlspecialchars($user['email']) . '</td>
-                  <td class="px-4 py-2">' . $alamat . '</td>
-                  <td class="px-4 py-2">
-                   <a href="deleteUser.php?id=' . $user['id'] . '" onclick="return confirm(\'Are you sure you want to delete this user?\')" class="bg-red-600 hover:bg-red-700 text-white text-xs px-4 py-2 rounded">Hapus</a>
-
-                  </td>
-                </tr>';
-                                    $i++;
-                                }
-                            } else {
-                                echo '<tr><td colspan="6" class="text-center text-gray-500 py-4">No users found.</td></tr>';
-                            }
-
-                            $conn->close();
+                            $result = $conn->query("SELECT * FROM users");
+                            while ($row = $result->fetch_assoc()):
                             ?>
+                                <tr class="border-b">
+                                    <td class="px-4 py-2"><?= htmlspecialchars($row['name']) ?></td>
+                                    <td class="px-4 py-2"><?= htmlspecialchars($row['email']) ?></td>
+                                    <td class="px-4 py-2">
+                                        <button type="button"
+                                            onclick="if(confirm('Yakin ingin menghapus data ini?')) window.location.href='?id=<?= $row['id'] ?>'"
+                                            class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                                            Hapus
+                                        </button>
+
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
