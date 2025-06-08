@@ -41,10 +41,9 @@
     <div class="flex-1">
       <h3 class="text-lg font-semibold mb-2">Pemesanan oleh: ' . htmlspecialchars($booking['user_name']) . '</h3>
       <p class="text-gray-600">Kamar: ' . htmlspecialchars($booking['room_name']) . '</p>
-      <p class="text-gray-600">Harga: Rp ' . number_format($booking['price'], 0, ',', '.') . '</p>
       <p class="text-gray-600">Jumlah Penyewa: ' . htmlspecialchars($booking['tenant_room']) . ' orang</p>
-      <p class="text-gray-600">Tanggal: ' . htmlspecialchars($booking['booking_date']) . '</p>
-      <p class="text-gray-600">Waktu: ' . htmlspecialchars($booking['booking_time']) . '</p>
+      <p class="text-gray-600">Tanggal: ' . date("d F Y", strtotime($booking['booking_date'])) . '</p>
+      <p class="text-gray-600">Waktu: ' . date("H:i", strtotime($booking['booking_time'])) . '</p>
       <p class="text-gray-600">Metode Pembayaran: ' . htmlspecialchars($booking['payment_method']) . '</p>
       <p class="text-sm text-gray-400 mt-2">Dipesan pada: ' . htmlspecialchars($booking['created_at']) . '</p>
     </div>

@@ -130,10 +130,10 @@ $room = mysqli_fetch_assoc($query);
                         <h2 class="text-lg font-semibold mb-2">Select a time</h2>
                         <div id="dateGrid" class="grid grid-cols-7 gap-7 text-center text-sm mb-4"></div>
                         <div class="space-y-3" id="timeButtons">
-                            <button type="button" class="time-btn w-full text-left h-[72px] bg-white pl-6 font-bold rounded hover:bg-purple-100 cursor-pointer transition" data-time="4:45 pm">4:45 pm</button>
-                            <button type="button" class="time-btn w-full text-left h-[72px] bg-white pl-6 font-bold rounded hover:bg-purple-100 cursor-pointer transition" data-time="5:00 pm">5:00 pm</button>
-                            <button type="button" class="time-btn w-full text-left h-[72px] bg-white pl-6 font-bold rounded hover:bg-purple-100 cursor-pointer transition" data-time="5:15 pm">5:15 pm</button>
-                            <button type="button" class="time-btn w-full text-left h-[72px] bg-white pl-6 font-bold rounded hover:bg-purple-100 cursor-pointer transition" data-time="4:30 pm">4:30 pm</button>
+                            <button type="button" class="time-btn w-full text-left h-[72px] bg-white pl-6 font-bold rounded hover:bg-purple-100 cursor-pointer transition" data-time="4:45 pm">16:45</button>
+                            <button type="button" class="time-btn w-full text-left h-[72px] bg-white pl-6 font-bold rounded hover:bg-purple-100 cursor-pointer transition" data-time="5:00 pm">17:00</button>
+                            <button type="button" class="time-btn w-full text-left h-[72px] bg-white pl-6 font-bold rounded hover:bg-purple-100 cursor-pointer transition" data-time="5:15 pm">17:15</button>
+                            <button type="button" class="time-btn w-full text-left h-[72px] bg-white pl-6 font-bold rounded hover:bg-purple-100 cursor-pointer transition" data-time="4:30 pm">16:30</button>
                         </div>
                     </div>
                 </div>

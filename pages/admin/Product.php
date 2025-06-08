@@ -154,7 +154,7 @@
                        <!-- Data kosan -->
                        <div class="flex-1">
                            <h2 class="text-lg font-bold"><?= htmlspecialchars($row['name']) ?></h2>
-                           <br><br>
+                           <br>
                            <p class="text-gray-700 mb-1">Harga: Rp<?= number_format($row['price'], 0, ',', '.') ?></p>
                            <p class="text-gray-700 mb-1">Kamar Kosong: <?= $row['available_room'] ?></p>
                            <p class="text-gray-700 mb-1">Kamar Terisi: <?= $row['tenant_room'] ?></p>
