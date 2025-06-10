@@ -1,6 +1,17 @@
+<?php 
+// Ambil data rooms untuk ditampilkan
+$result = $conn->query("SELECT * FROM rooms");
+// Pastikan mengubah result menjadi array untuk looping
+$rooms = [];
+if ($result && $result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $rooms[] = $row;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,69 +29,85 @@
         }
     </style>
 </head>
-
 <body>
     <div class="flex h-screen bg-gray-50">
         <?php include "./Components/owner/sidebar.php"; ?>
-
+        
         <!-- Main Content -->
         <div class="flex-1 overflow-y-auto p-10 ml-[16rem]">
             <!-- Topbar -->
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">Product Information</h1>
+                <h1 class="text-2xl font-bold text-gray-800 mb-6">Product Information</h1>
+                
                 <!-- Main Content -->
-                <div class="flex-1 p-10" data-aos="fade-right">
-                    <?php
-                    $rooms = [
-                        [
-                            'type' => 'Reguler',
-                            'info' => 4,
-                            'available' => 4,
-                            'tenant' => 4,
-                            'img' => '/KosPelitaHarapan/assets/kamaar1.png'
-                        ],
-                        [
-                            'type' => 'Exclusive',
-                            'info' => 4,
-                            'available' => 4,
-                            'tenant' => 4,
-                            'img' => '/KosPelitaHarapan/assets/kamaar2.png'
-                        ],
-                        [
-                            'type' => 'VVIP',
-                            'info' => 4,
-                            'available' => 4,
-                            'tenant' => 4,
-                            'img' => '/KosPelitaHarapan/assets/kamaar3.png'
-                        ]
-                    ];
-
-                    foreach ($rooms as $room) {
-                        // Anda bisa ubah link detail jika sudah tersedia
-                        $url = "#"; // Placeholder untuk View Details
-
-                        echo '
-    <div class="bg-white rounded-xl shadow p-5 mb-5 flex items-center">
-        <img src="' . htmlspecialchars($room['img']) . '" class="w-48 h-32 object-cover rounded-lg mr-6" alt="Room Image">
-        <div class="flex-1">
-            <h3 class="text-lg font-semibold mb-2">' . htmlspecialchars($room['type']) . '</h3>
-            <p class="text-gray-600">Info: ' . htmlspecialchars($room['info']) . '</p>
-            <p class="text-gray-600">Available: ' . htmlspecialchars($room['available']) . '</p>
-            <p class="text-gray-600">Tenant: ' . htmlspecialchars($room['tenant']) . '</p>
+                <div class="flex-1" data-aos="fade-right">
+                    <?php if (!empty($rooms)): ?>
+    <?php foreach ($rooms as $room): ?>
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6 flex items-center hover:shadow-xl transition-shadow duration-300">
+            <?php if (!empty($room['gambar']) && file_exists("../uploads/" . $room['gambar'])): ?>
+                <img src="../uploads/<?php echo htmlspecialchars($room['gambar']); ?>" 
+                     alt="Room Image" 
+                     class="w-48 h-32 object-cover rounded-xl mr-6" 
+                     onerror="this.src='https://via.placeholder.com/200x130/e5e7eb/9ca3af?text=No+Image'">
+            <?php else: ?>
+                <div class="w-48 h-32 bg-gray-200 rounded-xl mr-6 flex items-center justify-center">
+                    <div class="text-center text-gray-500">
+                        <i class="fas fa-image text-2xl mb-2"></i>
+                        <p class="text-sm">No Image</p>
+                    </div>
+                </div>
+            <?php endif; ?>
+            
+            <div class="flex-1">
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">
+                    <?php echo htmlspecialchars($room['name'] ?? 'Unnamed Room'); ?>
+                </h3>
+                <div class="space-y-2">
+                    <p class="text-gray-600">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        <strong>Info:</strong> <?php echo htmlspecialchars($room['fasilitas'] ?? 'No facilities info'); ?>
+                    </p>
+                    <p class="text-gray-600">
+                        <i class="fas fa-file-alt mr-2"></i>
+                        <strong>Description:</strong> <?php echo htmlspecialchars($room['deskripsi'] ?? 'No description'); ?>
+                    </p>
+                    <p class="text-gray-600">
+                        <i class="fas fa-door-open mr-2"></i>
+                        <strong>Available Rooms:</strong>
+                        <span class="text-green-600 font-medium"><?php echo htmlspecialchars($room['available_room'] ?? '0'); ?></span>
+                    </p>
+                    <p class="text-gray-600">
+                        <i class="fas fa-users mr-2"></i>
+                        <strong>Occupied Rooms:</strong>
+                        <span class="text-blue-600 font-medium"><?php echo htmlspecialchars($room['tenant_room'] ?? '0'); ?></span>
+                    </p>
+                    <?php if (isset($room['harga'])): ?>
+                    <p class="text-gray-600">
+                        <i class="fas fa-money-bill-wave mr-2"></i>
+                        <strong>Price:</strong>
+                        <span class="text-green-700 font-bold">Rp <?php echo number_format($room['harga'], 0, ',', '.'); ?></span>
+                    </p>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
-               <a href="' . $url . '" class="bg-[#5A6ACF] text-white px-4 py-2 rounded-lg hover:bg-indigo-700 inline-block">
-            Detail Tenant
-        </a>
-    </div>';
-                    }
-                    ?>  
+    <?php endforeach; ?>
+<?php else: ?>
+    <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+        <div class="text-gray-400 mb-4">
+            <i class="fas fa-bed text-6xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-600 mb-2">No Rooms Available</h3>
+        <p class="text-gray-500 mb-4">There are currently no rooms in the database.</p>
+    </div>
+<?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- User profile dropdown button -->
-    <button id="userDropdown" class="fixed bottom-6 left-6 z-50 flex items-center bg-white text-gray-700 p-2 rounded-lg shadow-md">
+    <button id="userDropdown" class="fixed bottom-6 left-6 z-50 flex items-center bg-white text-gray-700 p-3 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200">
         <div class="flex items-center">
             <img class="w-8 h-8 rounded-full" src="/api/placeholder/32/32" alt="Aca">
             <div class="ml-3">
@@ -89,9 +116,16 @@
             </div>
         </div>
         <svg class="w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
         </svg>
     </button>
-</body>
 
+    <script>
+        // Add dropdown functionality if needed
+        document.getElementById('userDropdown').addEventListener('click', function() {
+            // Add your dropdown logic here
+            console.log('User dropdown clicked');
+        });
+    </script>
+</body>
 </html>
