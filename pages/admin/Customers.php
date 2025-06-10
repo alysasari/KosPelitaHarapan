@@ -97,11 +97,10 @@ if (!$query) {
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th class="px-6 py-3">User Name</th>
-                                <th class="px-6 py-3">Booking Date</th>
-                                <th class="px-6 py-3">Payment Method</th>
                                 <th class="px-6 py-3">Room ID</th>
-
                                 <th class="px-6 py-3">Booking ID</th>
+                                <th class="px-6 py-3">Room name</th>   
+                                <th class="px-6 py-3">Booking Date</th>                               
 
                             </tr>
                         </thead>
@@ -109,10 +108,10 @@ if (!$query) {
                             <?php while ($row = mysqli_fetch_assoc($query)) : ?>
                                 <tr class="bg-white border-b">
                                     <td class="px-6 py-4"><?= htmlspecialchars($row['user_name']) ?></td>
-                                    <td class="px-6 py-4"><?= htmlspecialchars($row['booking_date']) ?></td>
-                                    <td class="px-6 py-4"><?= htmlspecialchars($row['payment_method']) ?></td>
                                     <td class="px-6 py-4"><?= htmlspecialchars($row['room_id']) ?></td>
                                     <td class="px-6 py-4"><?= htmlspecialchars($row['id']) ?></td>
+                                    <td class="px-6 py-4"><?= htmlspecialchars($row['room_name']) ?></td>
+                                    <td class="px-6 py-4"><?= htmlspecialchars($row['booking_date']) ?></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
