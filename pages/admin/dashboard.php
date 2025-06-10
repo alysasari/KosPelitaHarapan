@@ -15,6 +15,17 @@ if (isset($_GET['id'])) {
     $stmt->close();
     $conn->close();
 }
+
+// menghitung jumlah users pada users
+$result = mysqli_query($conn, 'SELECT COUNT(*) AS total_users FROM users');
+$data = mysqli_fetch_assoc($result);
+$total_users = $data['total_users'];
+
+// menghitung jumlah bookings pada tabel bookings
+$result = mysqli_query($conn, 'SELECT COUNT(*) AS total_bookings FROM bookings');
+$data = mysqli_fetch_assoc($result);
+$total_bookings = $data['total_bookings'];
+
 ?>
 
 
@@ -65,21 +76,23 @@ if (isset($_GET['id'])) {
             <div class="p-8">
                 <!-- Stats Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <!-- Total Participation -->
+                    <!-- Total Bookings -->
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                         <div class="flex justify-between">
                             <div>
-                                <p class="text-sm text-gray-500 mb-1">Total Participation</p>
-                                <h3 class="text-2xl font-bold text-gray-800">Rp 20.000.000</h3>
-                                <p class="text-xs text-green-500 mt-1"><i class="fas fa-arrow-up mr-1"></i> 8% this month</p>
+                                <p class="text-sm text-gray-500 mb-1">Total Pemesanan</p>
+                                <h3 class="text-2xl font-bold text-gray-800"><?= $total_bookings ?> Booking</h3>
+                                <p class="text-xs text-green-500 mt-1"><i class="fas fa-arrow-up mr-1"></i> Updated</p>
                             </div>
                             <div class="h-12 w-12 bg-green-50 rounded-full flex items-center justify-center">
                                 <svg class="w-6 h-6 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1M2 5h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1M2 5h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
                                 </svg>
                             </div>
                         </div>
                     </div>
+
 
                     <!-- Progress -->
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
@@ -102,13 +115,8 @@ if (isset($_GET['id'])) {
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-sm text-gray-500 mb-1">Active Users</p>
-                                <h3 class="text-2xl font-bold text-gray-800">10</h3>
-                                <div class="flex -space-x-2 mt-2">
-                                    <img class="w-6 h-6 rounded-full border-2 border-white" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                                    <img class="w-6 h-6 rounded-full border-2 border-white" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="">
-                                    <img class="w-6 h-6 rounded-full border-2 border-white" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="">
-                                    <img class="w-6 h-6 rounded-full border-2 border-white" src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="">
-                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800"><?= $total_users ?> akun</h3>
+
                             </div>
                             <div class="h-12 w-12 bg-gray-50 rounded-full flex items-center justify-center">
                                 <svg class="w-6 h-6 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 18">
