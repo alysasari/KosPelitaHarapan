@@ -9,11 +9,30 @@ if (!$conn) {
 // Ambil semua data dari tabel bookings
 $query = mysqli_query($conn, "SELECT * FROM bookings");
 
+// validasi penghapusan data 
+if (isset($_GET['delete'])) {
+    $id_to_delete = (int)$_GET['delete'];
+
+    $delete_query = "DELETE FROM bookings WHERE id= $id_to_delete";
+    if (mysqli_query($conn, $delete_query)) {
+        echo "<script>
+            alert('Data berhasil dihapus');
+           window.location.href = '" . strtok($_SERVER["REQUEST_URI"], "?") . "';
+        </script>";
+    } else {
+        echo "<script>
+            alert('Gagal menghapus data: " . mysqli_error($conn) . "');
+        </script>";
+    }
+}
+
 // Cek query
 if (!$query) {
     die("Query gagal: " . mysqli_error($conn));
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -99,8 +118,9 @@ if (!$query) {
                                 <th class="px-6 py-3">User Name</th>
                                 <th class="px-6 py-3">Room ID</th>
                                 <th class="px-6 py-3">Booking ID</th>
-                                <th class="px-6 py-3">Room name</th>   
-                                <th class="px-6 py-3">Booking Date</th>                               
+                                <th class="px-6 py-3">Room name</th>
+                                <th class="px-6 py-3">Booking Date</th>
+                                <th class="px-6 py-3">Action</th>
 
                             </tr>
                         </thead>
@@ -112,6 +132,13 @@ if (!$query) {
                                     <td class="px-6 py-4"><?= htmlspecialchars($row['id']) ?></td>
                                     <td class="px-6 py-4"><?= htmlspecialchars($row['room_name']) ?></td>
                                     <td class="px-6 py-4"><?= htmlspecialchars($row['booking_date']) ?></td>
+                                    <td class="px-6 py-4">
+                                        <a href="?delete=<?= $row['id'] ?>"
+                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
+                                            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                            Hapus
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>

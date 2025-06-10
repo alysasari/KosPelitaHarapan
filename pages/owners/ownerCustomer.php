@@ -9,6 +9,19 @@ if (!$conn) {
 // Ambil semua data dari tabel bookings
 $query = mysqli_query($conn, "SELECT * FROM bookings");
 
+// menghitung jumlah pendapatan
+$result = mysqli_query($conn, "SELECT SUM(price) AS total_income FROM bookings");
+$data = mysqli_fetch_assoc($result);
+$total_income = $data['total_income'];
+
+// menghitung jumlah users pada bookings
+$result = mysqli_query($conn, 'SELECT COUNT(*) AS total_bookings FROM bookings');
+$data = mysqli_fetch_assoc($result);
+$total_booking = $data['total_bookings'];
+
+// Ambil data booking (misalnya 10 terbaru)
+$resultBookings = mysqli_query($conn, "SELECT * FROM bookings ORDER BY created_at DESC LIMIT 10");
+
 // Cek query
 if (!$query) {
     die("Query gagal: " . mysqli_error($conn));
@@ -64,9 +77,8 @@ if (!$query) {
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                         <div class="flex justify-between">
                             <div>
-                                <p class="text-sm text-gray-500 mb-1">Total Participation</p>
-                                <h3 class="text-2xl font-bold text-gray-800">Rp 20.000.000</h3>
-                                <p class="text-xs text-green-500 mt-1"><i class="fas fa-arrow-up mr-1"></i> 8% this month</p>
+                                <p class="text-sm text-gray-500 mb-1">Total Pemasukan</p>
+                                <h3 class="text-2xl font-bold text-gray-800">Rp <?= number_format($total_income, 0, ',', '.') ?></h3>
                             </div>
                             <div class="h-12 w-12 bg-green-50 rounded-full flex items-center justify-center">
                                 <svg class="w-6 h-6 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -97,12 +109,13 @@ if (!$query) {
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-sm text-gray-500 mb-1">Active Users</p>
-                                <h3 class="text-2xl font-bold text-gray-800">10</h3>
+                                <h3 class="text-2xl font-bold text-gray-800"><?= $total_booking ?></h3>
                                 <div class="flex -space-x-2 mt-2">
-                                    <img class="w-6 h-6 rounded-full border-2 border-white" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                                    <img class="w-6 h-6 rounded-full border-2 border-white" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="">
-                                    <img class="w-6 h-6 rounded-full border-2 border-white" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="">
-                                    <img class="w-6 h-6 rounded-full border-2 border-white" src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="">
+                                    <?php while ($booking = mysqli_fetch_assoc($resultBookings)) : ?>
+                                        <img class="w-6 h-6 rounded-full border-2 border-white"
+                                            src="https://flowbite.com/docs/images/people/profile-picture-<?= rand(2, 5) ?>.jpg"
+                                            alt="booking <?= htmlspecialchars($booking['user_name']) ?>">
+                                    <?php endwhile; ?>
                                 </div>
                             </div>
                             <div class="h-12 w-12 bg-gray-50 rounded-full flex items-center justify-center">
@@ -117,7 +130,7 @@ if (!$query) {
 
                 <div class="bg-white shadow-md rounded-lg overflow-x-auto p-6">
                     <h1 class="text-2xl font-bold mb-4">All Customers</h1>
-                   <table class="w-full text-sm text-left text-gray-500">
+                    <table class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th class="px-6 py-3">User Name</th>
@@ -126,7 +139,7 @@ if (!$query) {
                                 <th class="px-6 py-3">Room ID</th>
                                 <th class="px-6 py-3">Booking ID</th>
                                 <th class="px-6 py-3">Room Name</th>
-                                <th class="px-6 py-3">Price</th>       
+                                <th class="px-6 py-3">Price</th>
                             </tr>
                         </thead>
                         <tbody>
