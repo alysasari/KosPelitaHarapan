@@ -46,9 +46,8 @@ $room = $result->fetch_assoc();
                         <h1 class="text-2xl font-bold mb-2"><?= htmlspecialchars($room['name']) ?></h1>
                         <div class="flex items-center text-sm text-gray-600 space-x-3">
                             <span>⭐ 5.0 (196)</span>
-                            <span class="text-red-500">• Closed</span>
+                            <span class="text-green-500">• Open</span>
                             <span>opens soon at 9:00am</span>
-                            <span>• MG Road, Bangalore</span>
                         </div>
                     </div>
 
