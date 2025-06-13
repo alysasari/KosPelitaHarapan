@@ -37,7 +37,7 @@
         <img src="/KosPelitaHarapan/assets/Decore.png" alt="Decoration"
             class="absolute top-0 right-0 size-[40rem] object-cover -z-10">
 
-        <div class="grid grid-cols-2 justify-center items-center p-28 relative" data-aos="fade-up">
+        <div class="container mx-auto grid grid-cols-2 justify-center items-center p-28 relative" data-aos="fade-up">
             <!-- Bagian Teks -->
             <div>
                 <p class="text-xl font-bold text-[#DF6951] uppercase">Best Destinations Around The World</p>
@@ -61,7 +61,7 @@
         <h2 class="text-md font-bold text-black uppercase">CATEGORY</h2>
         <h class="font-[Volkhov] text-3xl font-bold text-[#181E4B] leading-tight">We Offer Best Services</h>
     </div>
-    <div class="grid grid-cols-4 p-10 gap-6 mb-[5rem]" data-aos="fade-up">
+    <div class="container mx-auto grid grid-cols-4 p-10 gap-6 mb-[5rem]" data-aos="fade-up">
         <div class="flex flex-col gap-8 justify-center items-center max-w-sm p-6  border border-gray-200 rounded-3xl shadow-2xl ackdrop-blur-md text-center h-[20rem] ">
 
             <img src="/KosPelitaHarapan/assets/plane.png" alt="" class="size-30">
@@ -141,7 +141,7 @@
 
 
     <!-- ================= KEUNGGULAN ===================== -->
-    <div class="grid grid-cols-2  justify-center items-center p-20 gap-x-20 mb-[2rem]" data-aos="fade-up">
+    <div class="container mx-auto grid grid-cols-2  justify-center items-center p-20 gap-x-20 mb-[2rem]" data-aos="fade-up">
         <div>
             <p class="text-gray-500 font-semibold">Easy and Fast</p>
             <h1 class="text-4xl font-extrabold text-gray-900 font-[Volkhov]">Booking Kamar Sesuai<br>Pilihanmu</h1>
@@ -232,7 +232,7 @@
     </div>
 
     <!--=================== Testimoni =================================-->
-    <div class="grid grid-cols-2  justify-center p-20 gap-x-15 mb-[10rem]" data-aos="fade-up">
+    <div class="container mx-auto grid grid-cols-2  justify-center p-20 gap-x-15 mb-[10rem]" data-aos="fade-up">
         <div>
             <p class="text-gray-500 font-semibold">Easy and Fast</p>
             <h1 class="text-4xl font-extrabold text-gray-900 font-[Volkhov]">Booking Kamar Sesuai<br>Pilihanmu</h1>
