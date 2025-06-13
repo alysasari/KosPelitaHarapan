@@ -1,12 +1,23 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "chat_schema");
+include '../../koneksi/db.php';
 
-$sender = $_POST['sender'];
-$message = $_POST['message'];
+$sender = $_POST['sender'] ?? '';
+$message = $_POST['message'] ?? '';
 
-$stmt = $mysqli->prepare("INSERT INTO chat_messages (sender, message) VALUES (?, ?)");
+if (!$sender || !$message) {
+    echo json_encode(['status' => 'error', 'message' => 'Data kosong']);
+    exit;
+}
+
+$stmt = $conn->prepare("INSERT INTO messages (sender, message, created_at) VALUES (?, ?, NOW())");
 $stmt->bind_param("ss", $sender, $message);
-$stmt->execute();
 
-echo "Message sent!";
-?>
+if ($stmt->execute()) {
+    echo json_encode(['status' => 'success']);
+} else {
+    echo json_encode(['status' => 'error', 'message' => $stmt->error]);
+}
+
+$stmt->close();
+$conn->close();
+
