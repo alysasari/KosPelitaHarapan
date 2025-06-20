@@ -1,3 +1,10 @@
+<?php 
+session_start();
+$namaUser = 'Guest';
+
+// ambil nama dari tabel berdasarkan email saja :
+if(isset($_POST[''])){
+
 <!-- Sidebar -->
 <div class="w-64 h-screen bg-white shadow fixed">
     <div class="p-6">
