@@ -162,20 +162,6 @@ $total_bookings = $data['total_bookings'];
             </div>
         </div>
     </div>
-
-    <!-- User profile dropdown button -->
-    <button id="userDropdown" class="fixed bottom-6 left-6 z-50 flex items-center bg-white text-gray-700 p-2 rounded-lg shadow-md">
-        <div class="flex items-center">
-            <img class="w-8 h-8 rounded-full" src="/api/placeholder/32/32" alt="Aca">
-            <div class="ml-3">
-                <p class="text-sm font-medium">Aca</p>
-                <p class="text-xs text-gray-500">Admin</p>
-            </div>
-        </div>
-        <svg class="w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
-        </svg>
-    </button>
 </body>
 
 </html>
