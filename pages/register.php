@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             $success = "Registrasi berhasil!";
+            header("Location: /KosPelitaHarapan/login");
         } else {
             $error = "Gagal menyimpan data: " . $stmt->error;
         }
