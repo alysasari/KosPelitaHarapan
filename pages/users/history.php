@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,15 +11,7 @@
 </head>
 
 <body class="bg-gray-100 font-sans">
-    <div class="flex min-h-screen">
-        <?php include "./Components/sidebar.php"; ?>
-
-        <!-- Footer User -->
-        <div class="absolute bottom-6 left-6 text-sm text-gray-700">
-            <p class="font-semibold">Amanda</p>
-            <p class="text-gray-500">Perempuan</p>
-        </div>
-    </div>
+ <?php include "./Components/sidebar.php"; ?>
 
     <!-- Main Content -->
     <div class="flex-1 p-10 ml-[16rem]" data-aos="fade-right">

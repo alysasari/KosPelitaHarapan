@@ -23,7 +23,9 @@ $routes = [
     "admin/help" => "pages/admin/Help.php",
     "owners/product" => "pages/owners/ownerProduct.php",
     "owners/customers" => "pages/owners/ownerCustomer.php",
-    "edit" => "pages/admin/edit.php"
+    "edit" => "pages/admin/edit.php",
+    "logout" => "pages/logout.php"
+
 ];
 
 // Jika cocok dengan route statis

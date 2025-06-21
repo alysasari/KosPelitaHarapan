@@ -48,6 +48,21 @@ if (isset($_SESSION['user'])) {
                 </svg>
                 <span class="ml-3">Customers</span>
             </a>
+            <div class="absolute bottom-0 w-full p-4 border-t border-gray-200">
+                <?php if (isset($_SESSION['user'])): ?>
+                    <div class="text-sm text-gray-700">
+                        👤 <?= htmlspecialchars($namaUser) ?>
+                    </div>
+                    <br>
+                    <button type="button"
+                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                        onclick="window.location.href='/KosPelitaHarapan/login'">Logout</button>
+                <?php else: ?>
+                    <a href="/KosPelitaHarapan/login" class="text-sm text-blue-600 hover:underline">
+                        Login
+                    </a>
+                <?php endif; ?>
+            </div>
         </div>
         <div class="absolute bottom-0 w-full p-4 border-t border-gray-200">
                 <?php if (isset($_SESSION['user'])): ?>
