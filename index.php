@@ -48,4 +48,5 @@ if (preg_match("#^roomDetail/fasilitas/(\d+)$#", $request, $matches)) {
 
 // Jika tidak ditemukan
 http_response_code(404);
-echo "Halaman tidak ditemukan.";
+include "pages/404.php";
+exit;
